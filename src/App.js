@@ -5,8 +5,13 @@ const App = (props) => {
   const [count, setCount] = useState(props.count);
   const [text, setText] = useState('');
 
+  useEffect(() => {
+    console.log('this should only run once!')
+  }, [])
+
   //similar to componentDidMount and componentDidUpdate
   //second parameter defines, when useEffect() should be fired
+  //You can use useEffect many times
   useEffect(() => {
     console.log('useEffect ran');
     document.title = count;

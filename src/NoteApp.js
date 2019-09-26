@@ -7,13 +7,17 @@ const NoteApp = () => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
+  useEffect(() => {
+    console.log('it runs ones!')
+  }, [])
+
   //similar to componentDidMount and componentDidUpdate
   useEffect(() => {
     localStorage.setItem(
       'notes',
       JSON.stringify(notes),
     )
-  })
+  }, [notes])
   //------------------
 
   const addNote = (e) => {
