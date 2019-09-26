@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
-function App() {
+const App = (props) => {
+  const [count, setCount] = useState(props.count);
+  const [text, setText] = useState('');
+
+  //similar to componentDidMount and componentDidUpdate
+  //second parameter defines, when useEffect() should be fired
+  useEffect(() => {
+    console.log('useEffect ran');
+    document.title = count;
+  }, [count])
+
+  const increment = () => {
+    setCount(count + 1);
+  }
+  const decrement = () => {
+    setCount(count - 1)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <p>The current {text || 'count'} is {count}</p>
+      <button onClick={decrement}>-1</button>
+      <button onClick={() => setCount(props.count)}>reset</button>
+      <button onClick={increment}>+1</button>
+      <input value={text} onChange={(e) => setText(e.target.value)} />
     </div>
   );
+}
+
+App.defaultProps = {
+  count: 0,
 }
 
 export default App;
