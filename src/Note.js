@@ -47,7 +47,11 @@ const NoteApp = () => {
     <div>
       <h1>Notes</h1>
       {notes.map(note => (
-        <Note key={note.title} note={note} removeNote={removeNote} />
+        <div key={note.title}>
+          <h3>{note.title}</h3>
+          <p>{note.body}</p>
+          <button onClick={() => removeNote(note.title)}>&times;</button>
+        </div>
       ))
       }
       <p>AddNote</p>
@@ -65,25 +69,5 @@ const NoteApp = () => {
     </div>
   );
 };
-
-const Note = ({ note, removeNote }) => {
-
-  useEffect(() => {
-    console.log('Setting up effect')
-
-    //similar to componentDidUnmount:
-    return () => {
-      console.log('cleaning up effect')
-    }
-  }, [])
-
-  return (
-    <div>
-      <h3>{note.title}</h3>
-      <p>{note.body}</p>
-      <button onClick={() => removeNote(note.title)}>&times;</button>
-    </div>
-  )
-}
 
 export default NoteApp;

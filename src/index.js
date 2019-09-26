@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import NoteApp from './NoteApp';
+import Note from './Note'
 import * as serviceWorker from './serviceWorker';
 
 // ReactDOM.render(<App count={0} />, document.getElementById('root'));
 ReactDOM.render(<NoteApp />, document.getElementById('root'));
+// ReactDOM.render(<Note />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
