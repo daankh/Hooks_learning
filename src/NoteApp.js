@@ -2,13 +2,17 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 
 const NoteApp = () => {
-  const notesData = JSON.parse(localStorage.getItem('notes'))
-  const [notes, setNotes] = useState(notesData || [])
+  const [notes, setNotes] = useState([])
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
+  //get data from local storage
   useEffect(() => {
-    console.log('it runs ones!')
+    const notesData = JSON.parse(localStorage.getItem('notes'))
+
+    if (notesData) {
+      setNotes(notesData);
+    }
   }, [])
 
   //similar to componentDidMount and componentDidUpdate
