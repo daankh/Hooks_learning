@@ -1,17 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
+
+const notesReducer = (state, action) => {
+  switch (action.type) {
+    case 'POPULATE_NOTES':
+      return action.notes;
+    case 'ADD_NOTE':
+      return [
+        ...state,
+        {
+          title: action.title,
+          body: action.body
+        }
+      ];
+    case 'REMOVE_NOTE':
+      return state.filter(note => note.title !== action.title)
+    default:
+      return state;
+  }
+}
 
 const NoteApp = () => {
-  const [notes, setNotes] = useState([])
+  const [notes, dispatch] = useReducer(notesReducer, []) // useReducer(reducer, initialState), it returnst state (here: notes) and dispatch
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
   //get data from local storage
   //it could be form datatbase
   useEffect(() => {
-    const notesData = JSON.parse(localStorage.getItem('notes'))
+    const notes = JSON.parse(localStorage.getItem('notes'))
 
-    if (notesData) {
-      setNotes(notesData);
+    if (notes) {
+      dispatch({ type: 'POPULATE_NOTES', notes })
     }
   }, [])
 
@@ -26,21 +45,22 @@ const NoteApp = () => {
 
   const addNote = (e) => {
     e.preventDefault();
-    setNotes([
-      ...notes,
-      {
-        title,
-        body,
-      }
-    ]);
+
+    dispatch({
+      type: 'ADD_NOTE',
+      title,
+      body,
+    })
 
     setTitle('');
     setBody('');
   };
 
   const removeNote = (title) => {
-    const newNotes = notes.filter(note => note.title !== title)
-    setNotes([...newNotes])
+    dispatch({
+      type: 'REMOVE_NOTE',
+      title,
+    })
   };
 
   return (
