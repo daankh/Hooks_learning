@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { Fragment, useState, useContext } from 'react';
 import NotesContext from "../context/notes-context";
 
 const AddNoteForm = () => {
@@ -20,7 +20,7 @@ const AddNoteForm = () => {
   };
 
   return (
-    <div>
+    <Fragment>
       <p>AddNote</p>
       <form onSubmit={addNote}>
         <input placeholder='Your note title...'
@@ -33,7 +33,7 @@ const AddNoteForm = () => {
         />
         <button> add note</button>
       </form>
-    </div>
+    </Fragment>
   )
 }
 
